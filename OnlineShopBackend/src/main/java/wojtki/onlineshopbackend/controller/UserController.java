@@ -24,4 +24,10 @@ public class UserController {
         ApiResponse apiResponse = new ApiResponse(HttpStatus.CREATED.value(),"Successfully registered");
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
+
+    @GetMapping("/login")
+    public ResponseEntity<User> login(Authentication authentication) {
+        User user = userService.getUserByEmail(authentication.getName());
+        return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
 }

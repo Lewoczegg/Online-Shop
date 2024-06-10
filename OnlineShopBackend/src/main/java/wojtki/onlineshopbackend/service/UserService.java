@@ -35,4 +35,13 @@ public class UserService {
         authority.setName("ROLE_USER");
         authorityRepository.save(authority);
     }
+
+    public User getUserByEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isEmpty()) {
+            throw new NotFoundException("User not found");
+        } else {
+            return user.get();
+        }
+    }
 }
