@@ -55,6 +55,10 @@ public class SecurityConfig {
                         .requestMatchers("/user/login").authenticated()
                         .anyRequest().authenticated()
                 )
+                .exceptionHandling(exception ->
+                        exception
+                                .accessDeniedHandler(accessDeniedHandler)
+                                .authenticationEntryPoint(authenticationEntryPoint))
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
 
