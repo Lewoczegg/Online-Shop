@@ -15,4 +15,12 @@ export class UserService {
     return this.http.post(url, user);
   }
 
+  login(user: User) {
+    window.sessionStorage.setItem('userdetails', JSON.stringify(user));
+    const url = 'http://localhost:8080/' + AppConstants.LOGIN_API_URL;
+    return this.http.get<User>(url, {
+      observe: 'response',
+      withCredentials: true,
+    });
+  }
 }
