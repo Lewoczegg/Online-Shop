@@ -1,8 +1,16 @@
 <nav class="bg-gray-800 p-4 text-white">
   <div class="container mx-auto flex justify-between items-center">
     <a class="text-xl font-bold" routerLink="/">Online Shop</a>
-    <div>
-      @if (user?.authStatus !== "AUTH") {
+    <div class="flex gap-3">
+      @if(user?.authStatus === "AUTH" && !authorities?.includes("ROLE_SELLER"))
+      {
+      <button
+        class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded"
+        routerLink="/become-seller"
+      >
+        Become seller
+      </button>
+      } @if (user?.authStatus !== "AUTH") {
       <a routerLink="/login">Login / Register</a>
       } @if (user?.authStatus === "AUTH") {
       <button

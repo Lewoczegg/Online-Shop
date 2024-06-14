@@ -12,12 +12,16 @@ import { User } from '../../models/user.model';
 })
 export class HeaderComponent implements OnInit {
   user: User | null = null;
+  authorities: string[] | undefined = [];
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     if (sessionStorage.getItem('userdetails')) {
       this.user = JSON.parse(sessionStorage.getItem('userdetails')!);
     }
+
+    this.authorities = this.userService.getAuthorities();
+    console.log('WHY');
   }
 
   onClick(): void {
