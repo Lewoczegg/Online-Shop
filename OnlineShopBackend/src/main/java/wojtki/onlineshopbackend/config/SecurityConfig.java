@@ -52,7 +52,12 @@ public class SecurityConfig {
                 .addFilterBefore(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class)
                 .authorizeRequests((requests) -> requests
                         .requestMatchers("/user/register").permitAll()
+                        .requestMatchers("/product/all").permitAll()
                         .requestMatchers("/user/login").authenticated()
+                        .requestMatchers("/product/add").hasRole("SELLER")
+                        .requestMatchers("/product/my-products").hasRole("SELLER")
+                        .requestMatchers("/product/delete").hasRole("SELLER")
+                        .requestMatchers("/product/update").hasRole("SELLER")
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception ->

@@ -1,14 +1,12 @@
 package wojtki.onlineshopbackend.exception;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import wojtki.onlineshopbackend.dto.ApiResponse;
 
 import java.util.ArrayList;
@@ -49,8 +47,18 @@ public class RestExceptionHandler {
         return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(NOT_FOUND.value(), e.getMessage()));
     }
 
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ApiResponse> handleNotFoundException(NotFoundException e) {
+        return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(NOT_FOUND.value(), e.getMessage()));
+    }
+
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<ApiResponse> handleAuthenticationException(AuthenticationException e) {
         return ResponseEntity.status(UNAUTHORIZED).body(new ApiResponse(UNAUTHORIZED.value(), "Authentication failed: " + e.getMessage()));
+    }
+
+    @ExceptionHandler(PermissionDeniedException.class)
+    public ResponseEntity<ApiResponse> handlePermissionDeniedException(PermissionDeniedException e) {
+        return ResponseEntity.status(FORBIDDEN).body(new ApiResponse(FORBIDDEN.value(), e.getMessage()));
     }
 }
