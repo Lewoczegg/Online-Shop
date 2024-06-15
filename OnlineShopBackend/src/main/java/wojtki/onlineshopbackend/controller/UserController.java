@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import wojtki.onlineshopbackend.dto.ApiResponse;
+import wojtki.onlineshopbackend.dto.BecomeSellerRequest;
 import wojtki.onlineshopbackend.model.User;
 import wojtki.onlineshopbackend.service.UserService;
 
@@ -29,5 +30,12 @@ public class UserController {
     public ResponseEntity<User> login(Authentication authentication) {
         User user = userService.getUserByEmail(authentication.getName());
         return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
+
+    @PutMapping("/become-seller")
+    public ResponseEntity<ApiResponse> becomeSeller(@Valid @RequestBody BecomeSellerRequest becomeSellerRequest) {
+        userService.becomeSeller(becomeSellerRequest);
+        ApiResponse apiResponse = new ApiResponse(HttpStatus.OK.value(), "Successfully become seller");
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 }
