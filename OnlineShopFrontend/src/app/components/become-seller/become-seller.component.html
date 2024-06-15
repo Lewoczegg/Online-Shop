@@ -1,2 +1,82 @@
 <app-header></app-header>
-<p>become-seller works!</p>
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-center">Become a Seller</h2>
+    <form [formGroup]="becomeSellerForm" (ngSubmit)="onSubmit()" class="group">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="iban">
+          IBAN
+        </label>
+        <input
+          id="iban"
+          type="text"
+          formControlName="iban"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Enter your IBAN"
+        />
+        @if (iban?.touched && iban?.errors?.["required"]) {
+        <div class="text-red-500 text-sm mt-1">IBAN is required.</div>
+        }
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="address">
+          Address
+        </label>
+        <input
+          id="address"
+          type="text"
+          formControlName="address"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Enter your address"
+        />
+        @if (address?.touched && address?.errors?.["required"]) {
+        <div class="text-red-500 text-sm mt-1">Address is required.</div>
+        } @if (address?.touched && address?.errors?.["minlength"]) {
+        <div class="text-red-500 text-sm mt-1">Enter full address.</div>
+        }
+      </div>
+      <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="dateOfBirth"
+        >
+          Date of birth
+        </label>
+        <input
+          id="dateOfBirth"
+          type="date"
+          formControlName="dateOfBirth"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="DD-MM-YYYY"
+        />
+        @if (dateOfBirth?.touched && dateOfBirth?.errors?.["required"]) {
+        <div class="text-red-500 text-sm mt-1">Date of birth is required.</div>
+        }
+      </div>
+      <div
+        *ngIf="alertMessage"
+        [ngClass]="{
+          'bg-green-100 border-l-4 border-green-500 text-green-700':
+            alertCode === 200,
+          'bg-red-100 border-l-4 border-red-500 text-red-700':
+            alertCode === 409
+        }"
+        class="p-4 mt-4 mb-6"
+        role="alert"
+      >
+        <p class="font-bold" *ngIf="alertCode === 200">Success</p>
+        <p class="font-bold" *ngIf="alertCode === 409">Error</p>
+        <p>{{ alertMessage }}</p>
+      </div>
+      <div class="flex items-center justify-between">
+        <button
+          class="bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-blue-700 disabled:cursor-not-allowed"
+          type="submit"
+          [disabled]="!becomeSellerForm.valid"
+        >
+          Become seller
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

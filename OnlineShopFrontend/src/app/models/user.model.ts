@@ -6,4 +6,7 @@ export interface User {
   mobileNumber?: string;
   password: string;
   authStatus?: string;
+  iban?: number;
+  address?: string;
+  dateOfBirth?: Date
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 
@@ -13,7 +13,7 @@ import { User } from '../../models/user.model';
 export class HeaderComponent implements OnInit {
   user: User | null = null;
   authorities: string[] | undefined = [];
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     if (sessionStorage.getItem('userdetails')) {
@@ -21,16 +21,11 @@ export class HeaderComponent implements OnInit {
     }
 
     this.authorities = this.userService.getAuthorities();
-    console.log('WHY');
-  }
-
-  onClick(): void {
-    console.log(this.userService.getAuthorities());
   }
 
   logout(): void {
     window.sessionStorage.setItem('userdetails', '');
     window.sessionStorage.removeItem('Authorization');
-    this.user = null;
+    this.router.navigate(['login']);
   }
 }

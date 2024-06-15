@@ -78,8 +78,6 @@ export class RegisterComponent {
       password: this.password?.value,
     };
 
-    console.log(user);
-
     this.userService.register(user).subscribe({
       next: (result) => {
         this.allertMessage = result?.message;
