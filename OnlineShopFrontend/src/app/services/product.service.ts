@@ -15,4 +15,28 @@ export class ProductService {
       'http://localhost:8080/' + AppConstants.GET_ALL_PRODUCTS_API_URL;
     return this.http.get<Product[]>(url);
   }
+
+  getMyProducts(): Observable<Product[]> {
+    const url = 'http://localhost:8080/' + AppConstants.GET_MY_PRODUCTS_API_URL;
+    return this.http.get<Product[]>(url);
+  }
+
+  addProduct(product: Product) {
+    const url = 'http://localhost:8080/' + AppConstants.ADD_PRODUCT_API_URL;
+    return this.http.post<Product>(url, product);
+  }
+
+  updateProduct(product: Product) {
+    const url = 'http://localhost:8080/' + AppConstants.UPDATE_PRODUCT_API_URL;
+    return this.http.put<Product>(url, product);
+  }
+
+  deleteProduct(productId: number) {
+    const url =
+      'http://localhost:8080/' +
+      AppConstants.DELETE_PRODUCT_API_URL +
+      '?productId=' +
+      productId;
+    return this.http.delete(url);
+  }
 }

@@ -46,7 +46,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(apiResponse);
     }
 
-    @PatchMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<Product> updateProduct(@Valid @RequestBody Product product, Authentication authentication) {
         Product updatedProduct = productService.updateProduct(product, authentication);
         return ResponseEntity.status(HttpStatus.OK).body(updatedProduct);
