@@ -31,7 +31,7 @@ class UserServiceTest {
     private AuthorityRepository authorityRepository;
 
     @InjectMocks
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Test
     void becomeSeller_userNotFound_throwsNotFoundException() {

@@ -31,7 +31,7 @@ class ProductServiceTest {
     private Authentication authentication;
 
     @InjectMocks
-    private ProductService productService;
+    private ProductServiceImpl productService;
 
     @Test
     void getAllProducts_returnsProductList() {
