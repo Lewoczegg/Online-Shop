@@ -1,7 +1,7 @@
 <nav class="bg-gray-800 p-4 text-white">
   <div class="container mx-auto flex justify-between items-center">
     <a class="text-xl font-bold" routerLink="/home">Online Shop</a>
-    <div class="flex gap-3">
+    <div class="flex gap-3 items-center">
       @if(user?.authStatus === "AUTH" && !authorities?.includes("ROLE_SELLER"))
       {
       <button
@@ -10,13 +10,15 @@
       >
         Become seller
       </button>
-      } @if (user?.authStatus !== "AUTH") {
+
+      }
+      <a routerLink="/cart">
+        <fa-icon [icon]="faCartShopping" size="lg"></fa-icon>
+      </a>
+      @if (user?.authStatus !== "AUTH") {
       <a routerLink="/login">Login / Register</a>
       } @if (user?.authStatus === "AUTH") {
       <div class="relative flex flex-row items-center gap-4">
-        <a routerLink="/cart">
-          <fa-icon [icon]="faCartShopping" size="lg"></fa-icon>
-        </a>
         <div
           class="rounded-full border cursor-pointer flex items-center justify-center w-10 h-10"
           (click)="toggleDropdown()"
