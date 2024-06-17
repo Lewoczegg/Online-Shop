@@ -93,6 +93,25 @@ class ProductServiceTest {
     }
 
     @Test
+    void getProductById_productNotFound_throwsNotFoundException() {
+        when(productRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(NotFoundException.class, () -> productService.getProductById(1L));
+    }
+
+    @Test
+    void getProductById_success() {
+        Product expectedProduct = new Product();
+        expectedProduct.setId(1L);
+        when(productRepository.findById(1L)).thenReturn(Optional.of(expectedProduct));
+
+        Product actualProduct = productService.getProductById(1L);
+        
+        assertEquals(expectedProduct, actualProduct);
+        verify(productRepository, times(1)).findById(1L);
+    }
+
+    @Test
     void deleteProduct_sellerNotFound_throwsNotFoundException() {
         when(authentication.getName()).thenReturn("test@example.com");
         when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.empty());

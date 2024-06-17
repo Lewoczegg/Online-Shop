@@ -3,7 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
   authorities: string[] | undefined = [];
   isDropdownOpen: boolean = false;
   faUser = faUser;
+  faCartShopping = faCartShopping;
   constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {

@@ -26,6 +26,13 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }
 
+    @GetMapping("/get")
+    public ResponseEntity<Product> getProductById(@RequestParam Long productId) {
+        Product product = productService.getProductById(productId);
+        return ResponseEntity.status(HttpStatus.OK).body(product);
+    }
+
+
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addProduct(@Valid @RequestBody Product product, Authentication authentication) {
         productService.addProduct(product, authentication);

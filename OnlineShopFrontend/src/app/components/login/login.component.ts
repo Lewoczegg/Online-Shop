@@ -58,11 +58,11 @@ export class LoginComponent {
         this.user.authStatus = 'AUTH';
         window.sessionStorage.setItem('userdetails', JSON.stringify(this.user));
 
-        const lastUrl = sessionStorage.getItem('lastUrl') || '/';
+        const lastUrl = sessionStorage.getItem('lastUrl') || '/home';
 
         setTimeout(() => {
           this.router.navigate([lastUrl]);
-          sessionStorage.removeItem('lastUrl')
+          sessionStorage.removeItem('lastUrl');
         }, 1500);
       },
       error: (error) => {

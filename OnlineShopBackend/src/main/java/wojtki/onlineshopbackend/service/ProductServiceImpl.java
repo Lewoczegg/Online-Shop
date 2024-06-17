@@ -42,6 +42,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product getProductById(Long productId) {
+        Optional<Product> product = productRepository.findById(productId);
+
+        if(product.isEmpty()) {
+            throw new NotFoundException("Product not found");
+        }
+
+        return product.get();
+    }
+
+    @Override
     public List<Product> getMyProducts(Authentication authentication) {
         Optional<User> seller = userRepository.findByEmail(authentication.getName());
 

@@ -21,6 +21,15 @@ export class ProductService {
     return this.http.get<Product[]>(url);
   }
 
+  getProductById(productId: number): Observable<Product> {
+    const url =
+      'http://localhost:8080/' +
+      AppConstants.GET_PRODUCT_BY_ID_API_URL +
+      '?productId=' +
+      productId;
+    return this.http.get<Product>(url);
+  }
+
   addProduct(product: Product) {
     const url = 'http://localhost:8080/' + AppConstants.ADD_PRODUCT_API_URL;
     return this.http.post<Product>(url, product);
