@@ -12,4 +12,5 @@ export const AppConstants = {
   UPDATE_PRODUCT_API_URL: 'product/update',
 
   PLACE_ORDER_API_URL: 'order/add',
+  GET_ORDERS_API_URL: 'order/get'
 };

@@ -54,7 +54,6 @@ class OrderServiceImplTest {
 
     @Test
     void getMyOrders_success() {
-        // Arrange
         User user = new User();
         user.setId(1L);
         List<Order> expectedOrders = List.of(new Order(), new Order());
@@ -63,10 +62,8 @@ class OrderServiceImplTest {
         when(userService.getUserByEmail("test@example.com")).thenReturn(user);
         when(orderRepository.getOrderByUserId(1L)).thenReturn(expectedOrders);
 
-        // Act
         List<Order> actualOrders = orderService.getMyOrders(authentication);
 
-        // Assert
         assertEquals(expectedOrders, actualOrders);
         verify(userService, times(1)).getUserByEmail("test@example.com");
         verify(orderRepository, times(1)).getOrderByUserId(1L);

@@ -27,7 +27,7 @@
         </div>
         @if(isDropdownOpen) {
         <div
-          class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20"
+          class="absolute right-0 top-10 w-48 bg-white rounded-md shadow-lg py-1 z-20"
         >
           <a
             routerLink="/my-profile"
@@ -42,10 +42,10 @@
           >
           }
           <a
-            routerLink="/my-purchases"
+            routerLink="/home/orders"
             class="block px-4 py-2 text-gray-800 font-bold bg-gray-100 hover:bg-gray-200"
-            >My Purchases</a
-          >
+            >My Orders
+          </a>
           <button
             (click)="logout()"
             class="block w-full text-left px-4 py-2 text-white font-bold bg-red-500 hover:bg-red-700 rounded"

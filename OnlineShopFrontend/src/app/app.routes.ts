@@ -9,6 +9,7 @@ import { ProductFormComponent } from './components/product-form/product-form.com
 import { CartComponent } from './components/cart/cart.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
+import { MyOrdersComponent } from './components/my-orders/my-orders.component';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,11 @@ export const routes: Routes = [
     children: [
       { path: '', component: ProductListComponent },
       { path: 'product/:id', component: ProductDetailComponent },
+      {
+        path: 'orders',
+        component: MyOrdersComponent,
+        canActivate: [authGuard],
+      },
     ],
   },
   { path: 'login', component: LoginComponent },
