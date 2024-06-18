@@ -106,7 +106,7 @@ class ProductServiceTest {
         when(productRepository.findById(1L)).thenReturn(Optional.of(expectedProduct));
 
         Product actualProduct = productService.getProductById(1L);
-        
+
         assertEquals(expectedProduct, actualProduct);
         verify(productRepository, times(1)).findById(1L);
     }
