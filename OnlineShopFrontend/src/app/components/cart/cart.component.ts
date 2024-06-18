@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CartStoreItem } from '../../store/cartStoreItem';
 import { User } from '../../models/user.model';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
@@ -14,6 +15,8 @@ import { CartItem } from '../../models/cart.model';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
+import { Order } from '../../models/order.model';
+import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-cart',
@@ -39,7 +42,8 @@ export class CartComponent {
     public cartStoreItem: CartStoreItem,
     private router: Router,
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private orderService: OrderService
   ) {
     this.user = this.userService.getUser();
 
@@ -55,8 +59,16 @@ export class CartComponent {
     });
   }
 
+  get name(): AbstractControl<any, any> | null {
+    return this.orderForm.get('name');
+  }
+
+  get address(): AbstractControl<any, any> | null {
+    return this.orderForm.get('address');
+  }
+
   navigateToHome(): void {
-    this.router.navigate(['/']);
+    this.router.navigate(['/home']);
   }
 
   updateQuantity($event: any, cartItem: CartItem): void {
@@ -73,6 +85,30 @@ export class CartComponent {
 
   onSubmit(): void {
     if (this.user.authStatus) {
+      const order: Order = {
+        address: this.address?.value,
+        orderDetails: this.cartStoreItem.cart.products.map((product) => {
+          return {
+            name: product.product.name,
+            description: product.product.description,
+            quantity: product.quantity,
+            price: product.amount,
+          };
+        }),
+      };
+
+      this.orderService.placeOrder(order).subscribe({
+        next: (response) => {
+          this.cartStoreItem.clearCart();
+          this.alertType = 0;
+          this.alertMessage = 'Order registered successfully';
+          this.disableCheckout = true;
+        },
+        error: (error) => {
+          this.alertType = 2;
+          this.alertMessage = 'Please log in to register your order.';
+        },
+      });
     } else {
       this.alertType = 1;
       this.alertMessage = 'Please log in to register your order.';
