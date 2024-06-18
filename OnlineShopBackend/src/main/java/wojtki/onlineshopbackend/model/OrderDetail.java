@@ -1,5 +1,6 @@
 package wojtki.onlineshopbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,6 +11,7 @@ public class OrderDetail {
     private Long id;
 
     @ManyToOne
+    @JsonBackReference
     private Order order;
 
     private String name;
