@@ -68,6 +68,7 @@ export class LoginComponent {
       error: (error) => {
         this.allertMessage = error.error?.message;
         this.allertCode = error.error?.code;
+        window.sessionStorage.setItem('userdetails', '');
       },
     });
   }
