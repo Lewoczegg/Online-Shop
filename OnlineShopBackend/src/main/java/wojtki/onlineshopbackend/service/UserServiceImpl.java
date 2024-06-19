@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
             throw new DuplicateException("User with this email already exists");
         }
 
+        user.setBanned(false);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 

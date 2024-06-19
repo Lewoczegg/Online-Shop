@@ -34,6 +34,9 @@ public class UsernamePwdAuthenticationProvider implements AuthenticationProvider
         String pwd = authentication.getCredentials().toString();
         Optional<User> user = userRepository.findByEmail(username);
         if (user.isPresent()) {
+            if (user.get().isBanned()) {
+                throw new BadCredentialsException("User is banned");
+            }
             if (passwordEncoder.matches(pwd, user.get().getPassword())) {
                 return new UsernamePasswordAuthenticationToken(username, pwd, getGrantedAuthorities(user.get().getAuthorities()));
             } else {

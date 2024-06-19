@@ -2,6 +2,7 @@ package wojtki.onlineshopbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "orderdetails")
@@ -16,6 +17,7 @@ public class OrderDetail {
 
     private String name;
 
+    @Size(max = 500, message = "Description must be less than 500 characters")
     private String description;
 
     private Double price;

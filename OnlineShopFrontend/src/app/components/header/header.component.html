@@ -2,15 +2,21 @@
   <div class="container mx-auto flex justify-between items-center">
     <a class="text-xl font-bold" routerLink="/home">Online Shop</a>
     <div class="flex gap-3 items-center">
-      @if(user?.authStatus === "AUTH" && !authorities?.includes("ROLE_SELLER"))
-      {
+      @if(user?.authStatus === "AUTH" && authorities?.includes("ROLE_ADMIN")) {
+      <button
+        class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded"
+        routerLink="/admin"
+      >
+        Admin
+      </button>
+      } @if(user?.authStatus === "AUTH" &&
+      !authorities?.includes("ROLE_SELLER")) {
       <button
         class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded"
         routerLink="/become-seller"
       >
         Become seller
       </button>
-
       }
       <a routerLink="/cart">
         <fa-icon [icon]="faCartShopping" size="lg"></fa-icon>

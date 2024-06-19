@@ -58,6 +58,7 @@ public class SecurityConfig {
                         .requestMatchers("/product/my-products").hasRole("SELLER")
                         .requestMatchers("/product/delete").hasRole("SELLER")
                         .requestMatchers("/product/update").hasRole("SELLER")
+                        .requestMatchers("/admin/*").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception ->

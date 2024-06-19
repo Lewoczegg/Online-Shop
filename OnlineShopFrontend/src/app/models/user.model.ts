@@ -8,5 +8,6 @@ export interface User {
   authStatus?: string;
   iban?: number;
   address?: string;
-  dateOfBirth?: Date
+  banned?: boolean;
+  dateOfBirth?: Date;
 }

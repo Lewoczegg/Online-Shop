@@ -1,0 +1,46 @@
+<app-header></app-header>
+<div class="container mx-auto p-4">
+  <h2 class="text-2xl font-bold mb-4">Admin - Manage Users</h2>
+  <table class="min-w-full bg-white border border-gray-300">
+    <thead>
+      <tr>
+        <th class="py-2 px-4 border-b">ID</th>
+        <th class="py-2 px-4 border-b">First Name</th>
+        <th class="py-2 px-4 border-b">Last Name</th>
+        <th class="py-2 px-4 border-b">Email</th>
+        <th class="py-2 px-4 border-b">isBanned</th>
+        <th class="py-2 px-4 border-b">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (user of users; track $index) {
+      <tr>
+        <td class="py-2 px-4 border-b text-center">{{ user.id }}</td>
+        <td class="py-2 px-4 border-b text-center">{{ user.firstName }}</td>
+        <td class="py-2 px-4 border-b text-center">{{ user.lastName }}</td>
+        <td class="py-2 px-4 border-b text-center">{{ user.email }}</td>
+        <td class="py-2 px-4 border-b text-center">
+          {{ user.banned ? "True" : "False" }}
+        </td>
+        <td class="py-2 px-4 border-b text-center">
+          @if (user.banned) {
+          <button
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            (click)="unbanUser(user.id!)"
+          >
+            Unban
+          </button>
+          } @else {
+          <button
+            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            (click)="banUser(user.id!)"
+          >
+            Ban User
+          </button>
+          }
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
