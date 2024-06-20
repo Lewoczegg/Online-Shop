@@ -12,10 +12,12 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final UserService userService;
+    private final EmailService emailService;
 
-    public OrderServiceImpl(OrderRepository orderRepository, UserService userService) {
+    public OrderServiceImpl(OrderRepository orderRepository, UserService userService, EmailService emailService) {
         this.orderRepository = orderRepository;
         this.userService = userService;
+        this.emailService = emailService;
     }
 
     @Override
@@ -25,6 +27,8 @@ public class OrderServiceImpl implements OrderService {
         order.setUser(user);
 
         order.getOrderDetails().forEach(orderDetail -> orderDetail.setOrder(order));
+
+        emailService.sendEmail(user.getEmail());
 
         orderRepository.save(order);
     }
