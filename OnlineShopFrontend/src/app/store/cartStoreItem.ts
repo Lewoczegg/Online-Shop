@@ -43,12 +43,16 @@ export class CartStoreItem extends StoreItem<Cart> {
     this.cart.totalAmount += Number(product.price);
     ++this.cart.totalQuantity;
     this.saveCart();
+    console.log(this.cart);
   }
 
   removeProduct(cartItem: CartItem): void {
+    debugger;
     this.cart.products = this.cart.products.filter(
       (item) => item.product.id !== cartItem.product.id
     );
+    console.log(cartItem);
+
     this.cart.totalAmount -= cartItem.amount;
     this.cart.totalQuantity -= cartItem.quantity;
     if (this.cart.totalQuantity === 0) {
@@ -56,6 +60,8 @@ export class CartStoreItem extends StoreItem<Cart> {
     } else {
       this.saveCart();
     }
+
+    console.log(this.cart);
   }
 
   decreaseProductQuantity(cartItem: CartItem): void {
@@ -66,12 +72,21 @@ export class CartStoreItem extends StoreItem<Cart> {
       if (cartProduct.quantity === 1) {
         this.removeProduct(cartItem);
       } else {
-        cartProduct.quantity--;
+        cartProduct.quantity -= 1;
+        cartProduct.amount -= Number(cartItem.product.price);
         this.cart.totalAmount -= Number(cartItem.product.price);
-        --this.cart.totalQuantity;
+        this.cart.totalQuantity -= 1;
+        this.cart.products = [
+          ...this.cart.products.filter(
+            (product) => product.product.id !== cartProduct.product.id
+          ),
+          cartProduct,
+        ];
         this.saveCart();
       }
     }
+
+    console.log(this.cart);
   }
 
   saveCart(): void {

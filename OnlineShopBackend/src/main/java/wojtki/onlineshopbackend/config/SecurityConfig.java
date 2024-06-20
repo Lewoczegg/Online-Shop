@@ -53,6 +53,7 @@ public class SecurityConfig {
                 .authorizeRequests((requests) -> requests
                         .requestMatchers("/user/register").permitAll()
                         .requestMatchers("/product/all").permitAll()
+                        .requestMatchers("/product/get").permitAll()
                         .requestMatchers("/user/login").authenticated()
                         .requestMatchers("/product/add").hasRole("SELLER")
                         .requestMatchers("/product/my-products").hasRole("SELLER")
