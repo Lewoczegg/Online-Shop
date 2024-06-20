@@ -1,6 +1,8 @@
 package wojtki.onlineshopbackend.controller;
 
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -16,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/support")
 public class SupportController {
+    private static final Logger logger = LoggerFactory.getLogger(SupportController.class);
     private final SupportService supportService;
     private final UserService userService;
 
@@ -38,6 +41,7 @@ public class SupportController {
         User user = userService.getUserByEmail(authentication.getName());
         supportService.addTicket(ticket, user);
         ApiResponse apiResponse = new ApiResponse(HttpStatus.OK.value(), "Ticket added");
+        logger.info("Support ticket added successfully for user: {}", user.getEmail());
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 }
