@@ -17,4 +17,7 @@ export const AppConstants = {
   GET_ALL_USERS_API_URL: 'admin/get',
   BAN_USER_API_URL: 'admin/ban',
   UNBAN_USER_API_URL: 'admin/unban',
+
+  ADD_TICKET_API_URL: 'support/add',
+  GET_TICKETS_API_URL: 'support/get-tickets',
 };

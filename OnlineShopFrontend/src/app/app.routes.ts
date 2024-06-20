@@ -11,6 +11,8 @@ import { ProductDetailComponent } from './components/product-detail/product-deta
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { MyOrdersComponent } from './components/my-orders/my-orders.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { ContactSupportComponent } from './components/contact-support/contact-support.component';
+import { SupportTicketsComponent } from './components/support-tickets/support-tickets.component';
 
 export const routes: Routes = [
   {
@@ -55,6 +57,17 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'contact-support',
+    component: ContactSupportComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: "support-tickets",
+    component: SupportTicketsComponent,
+    canActivate: [authGuard]
   },
   {
     path: '',

@@ -10,6 +10,14 @@
         Admin
       </button>
       } @if(user?.authStatus === "AUTH" &&
+      authorities?.includes("ROLE_SUPPORT")) {
+      <button
+        class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded"
+        routerLink="/support-tickets"
+      >
+        Support
+      </button>
+      } @if(user?.authStatus === "AUTH" &&
       !authorities?.includes("ROLE_SELLER")) {
       <button
         class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded"
@@ -39,6 +47,11 @@
             routerLink="/my-profile"
             class="block px-4 py-2 text-gray-800 font-bold bg-gray-100 hover:bg-gray-200"
             >My Profile</a
+          >
+          <a
+            routerLink="/contact-support"
+            class="block px-4 py-2 text-gray-800 font-bold bg-gray-100 hover:bg-gray-200"
+            >Contact Support</a
           >
           @if(authorities?.includes("ROLE_SELLER")) {
           <a

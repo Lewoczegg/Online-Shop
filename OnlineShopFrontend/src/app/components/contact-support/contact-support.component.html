@@ -1,0 +1,60 @@
+<app-header></app-header>
+<div class="container mx-auto p-4">
+  <h2 class="text-2xl font-bold mb-4">Contact Support</h2>
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <div class="mb-4">
+      <label for="topic" class="block text-gray-700">Topic</label>
+      <input
+        id="topic"
+        formControlName="topic"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+      @if (topic?.touched && topic?.errors?.["required"]) {
+      <div class="text-red-500 text-sm mt-1">Topic is required</div>
+      }
+    </div>
+
+    <div class="mb-4">
+      <label for="description" class="block text-gray-700">Description</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        rows="4"
+      ></textarea>
+      @if (description?.touched && description?.errors?.["required"]) {
+      <div class="text-red-500 text-sm mt-1">Message is required</div>
+      } @if (description?.touched && description?.errors?.["maxlength"]) {
+      <div class="text-red-500 text-sm mt-1">Maximum 500 characters</div>
+      }
+    </div>
+    @if (allertMessage) {
+    <div
+      [ngClass]="{
+        'bg-green-100 border-l-4 border-green-500 text-green-700':
+          allertCode === 200,
+        'bg-red-100 border-l-4 border-red-500 text-red-700': allertCode === 400
+      }"
+      class="p-4 mt-4 mb-6"
+      role="alert"
+    >
+      @if (allertCode === 200) {
+      <p class="font-bold">Success</p>
+      } @if (allertCode === 400) {
+      <p class="font-bold">Error</p>
+      }
+      <p>{{ allertMessage }}</p>
+    </div>
+    }
+
+    <div class="mb-4">
+      <button
+        type="submit"
+        class="bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-blue-700 disabled:cursor-not-allowed"
+        [disabled]="!contactForm.valid"
+      >
+        Send Message
+      </button>
+    </div>
+  </form>
+</div>
